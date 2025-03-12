@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>WingWatch</title>
+
+  <!-- CSS & Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: url('https://images.unsplash.com/photo-1530521954074-e64f6810b32d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YWlycG9ydCUyMHdhaXRpbmd8ZW58MHx8MHx8fDA%3D') no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+    }
+    
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: -1;
+    }
+    
+    .container {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 50px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .btn {
+      background-color: #00796b;
+    }
+    
+    .logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin-right: 15px;
+    }
+    
+    .title-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('select');
+      M.FormSelect.init(elems);
+    });
+  </script>
+  
+  <div class="overlay"></div>
+  <div class="container z-depth-3">
+    <div class="title-container">
+      <img src="https://i.postimg.cc/2Sqf2wXN/logo.jpg" alt="WingWatch Logo" class="logo">
+      <h3 class="teal-text text-darken-4"><i class="material-icons">flight_takeoff</i>WINGwatch</h3>
+    </div>
+    <form action='/predict' method="post">
+      <div class="row">
+        <div class="input-field col s6">
+          <i class="material-icons prefix">location_on</i>
+          <input list="Source_list" name="Source" id="Source" type="text" required>
+          <label for="Source">Source City</label>
+          <datalist id="Source_list">
+            <option value="Delhi"/>
+            <option value="Kolkata"/>
+            <option value="Mumbai"/>
+            <option value="Chennai"/>
+            <option value="Bangalore"/>
+          </datalist>
+        </div>
+        <div class="input-field col s6">
+          <i class="material-icons prefix">location_on</i>
+          <input list="dest_list" name="Destination" id="Destination" type="text" required>
+          <label for="Destination">Destination City</label>
+          <datalist id="dest_list">
+            <option value="Hyderabad"/>
+            <option value="Cochin"/>
+            <option value="Delhi"/>
+            <option value="New Delhi"/>
+            <option value="Bangalore"/>
+            <option value="Kolkata"/>
+          </datalist>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <i class="material-icons prefix">event</i>
+          <input id="Date" name="Date" type="datetime-local" required>
+          <label for="Date"></label>
+        </div>
+        <div class="input-field col s6">
+          <i class="material-icons prefix">airplanemode_active</i>
+          <input list="airline_list" name="Airline" id="Airline" type="text" required>
+          <label for="Airline">Preferred Airline</label>
+          <datalist id="airline_list">
+            <option value="Jet Airways"/>
+            <option value="IndiGo"/>
+            <option value="Air India"/>
+            <option value="Multiple carriers"/>
+            <option value="SpiceJet"/>
+            <option value="Vistara"/>
+            <option value="Air Asia"/>
+            <option value="GoAir"/>
+            <option value="Multiple carriers Premium economy"/>
+            <option value="Jet Airways Business"/>
+            <option value="Vistara Premium economy"/>
+            <option value="Trujet"/>
+          </datalist>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <i class="material-icons prefix">transfer_within_a_station</i>
+          <input list="stop_list" name="Stops" id="Stops" type="number" required>
+          <label for="Stops">Number of Stops</label>
+          <datalist id="stop_list">
+            <option value="0">Non-Stop</option>
+            <option value="1"/>
+            <option value="2"/>
+            <option value="3"/>
+            <option value="4"/>
+          </datalist>
+        </div>
+        <div class="input-field col s6">
+          <i class="material-icons prefix">event_seat</i>
+          <select name="Class" id="Class" required>
+            <option value="" disabled selected>Choose Class</option>
+            <option value="Economy">Economy</option>
+            <option value="Business">Business</option>
+          </select>
+          <label for="Class">Flight Class</label>
+        </div>
+        
+        
+      </div>
+      <div class="row center">
+        <button type="submit" class="btn waves-effect waves-light"><i class="material-icons left">search</i> Predict Fare</button>
+      </div>
+    </form>
+    <h5 class="center teal-text">{{pred}}</h5>
+  </div>
+
+  <!-- Materialize JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>
